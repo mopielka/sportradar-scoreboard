@@ -1,8 +1,12 @@
-export interface Game {
+export type Game = Readonly<{
   id: string;
-  createdAt: Date;
   homeTeamName: string;
   awayTeamName: string;
   homeScore: number;
   awayScore: number;
-}
+}>;
+
+export type Scoreboard = Readonly<{
+  title: string;
+  games: Game[];
+}>;

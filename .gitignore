@@ -2,3 +2,4 @@ node_modules/
 yarn-*.log
 dist/
 .idea/
+coverage/

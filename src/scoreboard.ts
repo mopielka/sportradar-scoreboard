@@ -1,54 +1,38 @@
-import type { Game } from './types';
-import { compareGamesByCreatedAt, generateId, getTimeNow } from './scoreboard/utils';
+import type { Game, Scoreboard } from './types';
+import { createGame, updateGameScore } from './game';
 
-class Scoreboard {
-  private games: readonly Game[] = [];
+export const createScoreboard = (title: string): Scoreboard => ({
+  title,
+  games: [],
+});
 
-  public startGame(homeTeamName: string, awayTeamName: string): string {
-    const game: Game = Object.freeze({
-      id: generateId(),
-      createdAt: getTimeNow(),
-      homeTeamName,
-      awayTeamName,
-      homeScore: 0,
-      awayScore: 0,
-    });
+export const startGame = (
+  scoreboard: Scoreboard,
+  homeTeamName: string,
+  awayTeamName: string
+): Scoreboard => ({
+  ...scoreboard,
+  games: [...scoreboard.games, createGame(homeTeamName, awayTeamName)],
+});
 
-    this.games = Object.freeze([...this.games, game]);
+export const finishGame = (scoreboard: Scoreboard, gameId: string): Scoreboard => ({
+  ...scoreboard,
+  games: scoreboard.games.filter((game) => game.id !== gameId),
+});
 
-    return game.id;
-  }
+export const updateScore = (
+  scoreboard: Scoreboard,
+  gameId: string,
+  homeScore: number,
+  awayScore: number
+): Scoreboard => ({
+  ...scoreboard,
+  games: scoreboard.games.map((game) =>
+    game.id === gameId ? updateGameScore(game, homeScore, awayScore) : game
+  ),
+});
 
-  public finishGame(id: string): void {
-    if (!this.games.some((game) => game.id === id)) {
-      throw new Error(`Game ${id} not found.`);
-    }
-
-    this.games = Object.freeze(this.games.filter((game) => game.id !== id));
-  }
-
-  public updateScore(gameId: string, homeScore: number, awayScore: number): void {
-    const game = this.games.find((game) => game.id === gameId);
-
-    if (!game) {
-      throw new Error(`Game ${gameId} not found.`);
-    }
-
-    this.games = [
-      ...this.games.filter((game) => game.id !== gameId),
-      Object.freeze({
-        ...game,
-        homeScore,
-        awayScore,
-      }),
-    ];
-  }
-
-  public getGames(): Game[] {
-    const result = [...this.games];
-
-    result.sort(compareGamesByCreatedAt);
-
-    return result;
-  }
-}
+export const getGamesSummary = (scoreboard: Scoreboard): Game[] =>
+  [...scoreboard.games]
+    .sort((a, b) => a.homeScore + a.awayScore - (b.homeScore + b.awayScore))
+    .reverse();
