@@ -5,10 +5,10 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "build": "tsc",
-    "prebuild": "yarn lint && yarn test",
-    "lint": "eslint --ext .ts --fix ./src",
-    "test": "jest"
+    "prepare": "yarn build",
+    "build": "yarn tsc",
+    "lint": "yarn eslint --ext .ts --fix ./src",
+    "test": "yarn jest"
   },
   "dependencies": {},
   "devDependencies": {
