@@ -6,7 +6,4 @@ export type Game = Readonly<{
   awayScore: number;
 }>;
 
-export type Scoreboard = Readonly<{
-  title: string;
-  games: Game[];
-}>;
+export type Scoreboard = readonly Game[];
