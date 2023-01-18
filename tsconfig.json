@@ -3,14 +3,16 @@
     "target": "esnext",
     "module": "esnext",
     "strict": true,
-    "jsx": "react",
+    "declaration": true,
+    "declarationDir": "./dist",
+    "declarationMap": true,
     "lib": ["es2017"],
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "sourceMap": true,
     "outDir": "./dist",
     "baseUrl": "./src",
-    "moduleResolution": "Node"
+    "moduleResolution": "node"
   },
   "include": ["src"],
   "exclude": ["node_modules", "dist"]

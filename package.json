@@ -1,5 +1,5 @@
 {
-  "name": "sportradar-scoreboard",
+  "name": "@mopielka/sportradar-scoreboard",
   "version": "0.0.1",
   "description": "A simple scoreboard implementation",
   "main": "dist/index.js",
