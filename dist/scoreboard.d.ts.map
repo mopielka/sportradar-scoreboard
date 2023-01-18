@@ -1,0 +1,1 @@
+{"version":3,"file":"scoreboard.d.ts","sourceRoot":"","sources":["../src/scoreboard.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,EAAE,UAAU,EAAE,MAAM,SAAS,CAAC;AAG1C,eAAO,MAAM,gBAAgB,kBAAuB,CAAC;AAErD,eAAO,MAAM,SAAS,yCAEN,MAAM,gBACN,MAAM,eACkD,CAAC;AAEzE,eAAO,MAAM,UAAU,mCAAoC,MAAM,eAChB,CAAC;AAElD,eAAO,MAAM,WAAW,mCAEd,MAAM,aACH,MAAM,aACN,MAAM,eAIhB,CAAC"}
