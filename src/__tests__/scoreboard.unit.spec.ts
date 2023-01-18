@@ -21,27 +21,30 @@ describe('module scoreboard', () => {
   describe('function startGame', () => {
     it('adds a game to the given scoreboard using given home and away team names and returns a new scoreboard', () => {
       const scoreboard: Scoreboard = [];
-      const gameMock = Mock.of<Game>();
+      const gameMock = Mock.of<Game>({ id: 'abc' });
       mocks.game.createGame.mockReturnValueOnce(gameMock);
 
-      const updatedScoreboard = startGame(scoreboard, 'Foo', 'Bar');
+      const { newScoreboard, gameId } = startGame(scoreboard, 'Foo', 'Bar');
 
       expect(mocks.game.createGame).toHaveBeenCalledWith('Foo', 'Bar');
-      expect(updatedScoreboard).not.toBe(scoreboard);
-      expect(updatedScoreboard).toEqual([gameMock]);
+      expect(newScoreboard).not.toBe(scoreboard);
+      expect(newScoreboard).toEqual([gameMock]);
+      expect(gameId).toBe('abc');
     });
 
     it('successfully adds to the scoreboard two games for the same teams', () => {
       const scoreboard: Scoreboard = [];
-      const gameMock = Mock.of<Game>();
-      const gameMock2 = Mock.of<Game>();
+      const gameMock = Mock.of<Game>({ id: 'a' });
+      const gameMock2 = Mock.of<Game>({ id: 'b' });
       mocks.game.createGame.mockReturnValueOnce(gameMock);
       mocks.game.createGame.mockReturnValueOnce(gameMock2);
 
-      const updatedScoreboard = startGame(startGame(scoreboard, 'Foo', 'Bar'), 'Foo', 'Bar');
+      const afterFirstChange = startGame(scoreboard, 'Foo', 'Bar');
+      const afterSecondChange = startGame(afterFirstChange.newScoreboard, 'Foo', 'Bar');
 
       expect(mocks.game.createGame).toHaveBeenCalledWith('Foo', 'Bar');
-      expect(updatedScoreboard).toEqual([gameMock, gameMock2]);
+      expect(afterFirstChange).toEqual({ newScoreboard: [gameMock], gameId: 'a' });
+      expect(afterSecondChange).toEqual({ newScoreboard: [gameMock, gameMock2], gameId: 'b' });
     });
   });
 
