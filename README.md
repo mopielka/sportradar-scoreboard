@@ -9,7 +9,7 @@ The data objects in this module are immutable so that the code is easier testabl
 ## Installation
 Add this line to your `package.json`'s `dependencies` section:
 ```
-"@mopielka/sportradar-scoreboard": "git+ssh://git@github.com:mopielka/sportradar-scoreboard.git#0.0.2"
+"@mopielka/sportradar-scoreboard": "git+ssh://git@github.com:mopielka/sportradar-scoreboard.git"
 ```
 and run `yarn install` / `npm install` / install package for any other package manager.
 
